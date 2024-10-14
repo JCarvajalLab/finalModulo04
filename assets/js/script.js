@@ -31,9 +31,6 @@ const productosDisponibles = [
     new Producto("Azucar", 1300),
 ];
 
-//Mostrar los productos disponibles del array 
-//console.log(productosDisponibles);
-
 //Funcion para mostrar los productos disponibles en el popup
 function mostrarProductos() {
     let disponible = "Productos disponibles:\n";
@@ -48,7 +45,7 @@ function mostrarProductos() {
 function agregarProductoAlCarrito(carrito) {
     alert(mostrarProductos());
     let ingresar = prompt("Ingresa el numero del producto que deseas agregar al carrito: ");
-    let productoAgregado = productoDisponible[ingresar - 1]
+    let productoAgregado = productosDisponibles[ingresar - 1]
 
     if(productoAgregado){
         let cantidad = parseInt(prompt("Ingresa la cantidad que deseas agregar al carrito: "));
@@ -58,3 +55,30 @@ function agregarProductoAlCarrito(carrito) {
         alert("Producto no disponible");
     }
 }
+//Funcion para agregar otro producto
+function agregarOtroProducto(carrito) {
+    while (true) {
+        let consulta = prompt("Desea agregar otro producto? (s/n)");
+        if (consulta.toLowerCase() === "s") {
+            agregarProductoAlCarrito(carrito); // Llamamos a la función para agregar otro producto
+        } else {
+            mostrarTotalCompra(carrito);
+            break; // Salimos del bucle
+        }
+    }
+}
+
+//funcion para mostrar el total de la compra + el detalle
+function mostrarTotalCompra(carrito) {
+    let totalCompra = carrito.calcularTotalCompra();
+    let detallesCompra = "Detalles de la compra:\n";
+    carrito.productos.forEach((producto, index) => {
+        detallesCompra += `${index + 1}. ${producto.producto.nombre} x ${producto.cantidad} - $${producto.producto.precio * producto.cantidad}\n`;
+    });
+    detallesCompra += `Total: $${totalCompra}`;
+    alert(detallesCompra);
+}
+
+let carrito = new Carrito();
+agregarProductoAlCarrito(carrito);
+agregarOtroProducto(carrito);
