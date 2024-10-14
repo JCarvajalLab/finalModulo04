@@ -43,4 +43,18 @@ function mostrarProductos() {
         return disponible;
 }
     //console.log(mostrarProductos());
+
+//Funcion para agregar productos al carrito
+function agregarProductoAlCarrito(carrito) {
     alert(mostrarProductos());
+    let ingresar = prompt("Ingresa el numero del producto que deseas agregar al carrito: ");
+    let productoAgregado = productoDisponible[ingresar - 1]
+
+    if(productoAgregado){
+        let cantidad = parseInt(prompt("Ingresa la cantidad que deseas agregar al carrito: "));
+        carrito.agregarProductos(productoAgregado, cantidad);
+        alert(`${cantidad} ${productoAgregado.nombre} agregado al carrito.`);
+    }else{
+        alert("Producto no disponible");
+    }
+}
