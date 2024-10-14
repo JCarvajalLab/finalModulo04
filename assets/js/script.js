@@ -35,4 +35,12 @@ const productosDisponibles = [
 //console.log(productosDisponibles);
 
 //Funcion para mostrar los productos disponibles en el popup
-
+function mostrarProductos() {
+    let disponible = "Productos disponibles:\n";
+    productosDisponibles.forEach((producto, index) => {
+        disponible += `${index + 1}. ${producto.nombre} - $${producto.precio}\n`;
+        });
+        return disponible;
+}
+    //console.log(mostrarProductos());
+    alert(mostrarProductos());
