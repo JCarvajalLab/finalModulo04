@@ -48,9 +48,16 @@ function agregarProductoAlCarrito(carrito) {
     let productoAgregado = productosDisponibles[ingresar - 1]
 
     if(productoAgregado){
-        let cantidad = parseInt(prompt("Ingresa la cantidad que deseas agregar al carrito: "));
-        carrito.agregarProductos(productoAgregado, cantidad);
-        alert(`${cantidad} ${productoAgregado.nombre} agregado al carrito.`);
+        while (true) {
+            let cantidad = parseInt(prompt("Ingresa la cantidad que deseas agregar al carrito: "));
+            if (isNaN(cantidad) || cantidad <= 0) {
+                alert("Error: Debes ingresar un número válido y mayor a 0.");
+            } else {
+                carrito.agregarProductos(productoAgregado, cantidad);
+                alert(`${cantidad} ${productoAgregado.nombre} agregado al carrito.`);
+                break;
+            }
+        }
     }else{
         alert("Producto no disponible");
     }
@@ -59,11 +66,19 @@ function agregarProductoAlCarrito(carrito) {
 function agregarOtroProducto(carrito) {
     while (true) {
         let consulta = prompt("Desea agregar otro producto? (s/n)");
+        if (consulta === null || consulta.trim() === "") {
+            alert("Error: Por favor, ingresa 's' para sí o 'n' para no.");
+            agregarOtroProducto(carrito);
+            break; // Salimos del bucle si el campo está vacío
+        }
+
         if (consulta.toLowerCase() === "s") {
             agregarProductoAlCarrito(carrito); // Llamamos a la función para agregar otro producto
-        } else {
+        } else if (consulta.toLowerCase() === "n") {
             mostrarTotalCompra(carrito);
             break; // Salimos del bucle
+        } else {
+            alert("Error: Por favor, ingresa 's' para sí o 'n' para no."); // Mensaje de error
         }
     }
 }
